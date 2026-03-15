@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WhatMovie? — Malem Ini Nonton Apa</title>
+    <meta
+      name="description"
+      content="Bingung mau nonton apa? WhatMovie bantu kamu nemuin film yang pas buat malam ini."
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Lucide Icons -->
+    <script
+      src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"
+      defer
+    ></script>
+
+    <!-- canvas-confetti (optional, for rating ≥8) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"
+      defer
+    ></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Grain overlay (fixed, always on top) -->
+    <div class="grain" aria-hidden="true"></div>
+    <!-- Vignette -->
+    <div class="vignette" aria-hidden="true"></div>
+
+    <!-- ═══════════ HERO SECTION ═══════════ -->
+    <section id="hero" class="hero">
+      <div class="hero-inner">
+        <p class="hero-eyebrow">🎬 &nbsp;Rekomendasi Film Sinematik</p>
+        <h1 class="hero-title">
+          <span class="typewriter" id="heroTyped"></span
+          ><span class="cursor" aria-hidden="true">|</span>
+        </h1>
+        <p class="hero-sub">
+          Filter sesuai selera. Temukan film yang kamu butuhkan malam ini.
+        </p>
+        <button
+          class="scroll-cta"
+          onclick="
+            document
+              .getElementById('filters')
+              .scrollIntoView({ behavior: 'smooth' })
+          "
+        >
+          <span>Mulai sekarang</span>
+          <i data-lucide="chevron-down"></i>
+        </button>
+      </div>
+
+      <!-- decorative film strip lines -->
+      <div class="filmstrip left" aria-hidden="true">
+        <div class="hole"></div>
+        <div class="hole"></div>
+        <div class="hole"></div>
+        <div class="hole"></div>
+        <div class="hole"></div>
+        <div class="hole"></div>
+      </div>
+      <div class="filmstrip right" aria-hidden="true">
+        <div class="hole"></div>
+        <div class="hole"></div>
+        <div class="hole"></div>
+        <div class="hole"></div>
+        <div class="hole"></div>
+        <div class="hole"></div>
+      </div>
+    </section>
+
+    <!-- ═══════════ FILTER SECTION ═══════════ -->
+    <section id="filters" class="filters-section">
+      <div class="filters-wrap">
+        <h2 class="section-label">// Konfigurasi Selera</h2>
+
+        <!-- Genre Multi-Select -->
+        <div class="filter-group" id="genreGroup">
+          <label class="filter-label"> <i data-lucide="film"></i> Genre </label>
+          <div class="genre-chips-container" id="genreChips">
+            <div class="chips-loading">Memuat genre...</div>
+          </div>
+        </div>
+
+        <!-- Tahun Rilis -->
+        <div class="filter-group">
+          <label class="filter-label">
+            <i data-lucide="calendar"></i> Tahun Rilis
+          </label>
+          <div class="year-range-row">
+            <div class="year-input-wrap">
+              <span>dari</span>
+              <input
+                type="number"
+                id="yearFrom"
+                min="1900"
+                max="2026"
+                value="2000"
+                class="year-input"
+              />
+            </div>
+            <div class="year-range-track">
+              <div class="year-range-fill" id="yearFill"></div>
+            </div>
+            <div class="year-input-wrap">
+              <span>sampai</span>
+              <input
+                type="number"
+                id="yearTo"
+                min="1900"
+                max="2026"
+                value="2026"
+                class="year-input"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Rating Minimal -->
+        <div class="filter-group">
+          <label class="filter-label">
+            <i data-lucide="star"></i> Rating Minimal
+          </label>
+          <div class="rating-options" id="ratingOptions">
+            <button class="rating-btn" data-rating="0">Semua</button>
+            <button class="rating-btn" data-rating="5">≥ 5.0</button>
+            <button class="rating-btn" data-rating="6">≥ 6.0</button>
+            <button class="rating-btn active" data-rating="6.5">≥ 6.5</button>
+            <button class="rating-btn" data-rating="7">≥ 7.0</button>
+            <button class="rating-btn" data-rating="7.5">≥ 7.5</button>
+            <button class="rating-btn" data-rating="8">≥ 8.0</button>
+          </div>
+        </div>
+
+        <!-- Bahasa/Negara -->
+        <div class="filter-group">
+          <label class="filter-label">
+            <i data-lucide="globe"></i> Bahasa / Negara
+          </label>
+          <div class="custom-select-wrap">
+            <select id="languageSelect" class="custom-select">
+              <option value="">Semua Bahasa</option>
+              <option value="id">🇮🇩 Indonesia (id)</option>
+              <option value="en">🇺🇸 English (en)</option>
+              <option value="ko">🇰🇷 Korea (ko)</option>
+              <option value="ja">🇯🇵 Jepang (ja)</option>
+              <option value="zh">🇨🇳 Mandarin (zh)</option>
+              <option value="fr">🇫🇷 Prancis (fr)</option>
+              <option value="es">🇪🇸 Spanyol (es)</option>
+              <option value="hi">🇮🇳 Hindi (hi)</option>
+              <option value="it">🇮🇹 Italia (it)</option>
+              <option value="de">🇩🇪 Jerman (de)</option>
+            </select>
+            <i data-lucide="chevron-down" class="select-arrow"></i>
+          </div>
+        </div>
+
+        <!-- CTA Button -->
+        <button class="cta-btn" id="searchBtn">
+          <span class="cta-label">Cari Rekomendasi!</span>
+          <i data-lucide="search"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- ═══════════ LOADING OVERLAY ═══════════ -->
+    <div
+      class="loading-overlay"
+      id="loadingOverlay"
+      aria-hidden="true"
+      aria-live="polite"
+    >
+      <div class="loader-inner">
+        <div class="loader-reel" aria-hidden="true">
+          <div class="reel-hole"></div>
+          <div class="reel-hole"></div>
+          <div class="reel-hole"></div>
+          <div class="reel-hole"></div>
+        </div>
+        <p class="loader-title" id="loaderPhrase">
+          Mencari film terbaik untukmu
+        </p>
+        <div class="dots-row" aria-hidden="true">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <p class="loader-sub" id="loaderSub">Scanning reels...</p>
+      </div>
+    </div>
+
+    <!-- ═══════════ RESULT SECTION ═══════════ -->
+    <section class="result-section" id="resultSection" aria-live="polite">
+      <!-- Poster BG blur -->
+      <div class="result-bg" id="resultBg"></div>
+      <div class="result-overlay"></div>
+
+      <div class="result-card" id="resultCard">
+        <!-- filled by JS -->
+      </div>
+
+      <div class="result-actions" id="resultActions">
+        <button class="action-btn primary" id="trailerBtn">
+          <i data-lucide="play-circle"></i> Tonton Trailer
+        </button>
+        <button class="action-btn" id="searchAgainBtn">
+          <i data-lucide="refresh-cw"></i> Cari Lagi
+        </button>
+        <button class="action-btn fav-btn" id="favBtn">
+          <i data-lucide="bookmark"></i> Simpan Favorit
+        </button>
+      </div>
+    </section>
+
+    <!-- ═══════════ TRAILER MODAL ═══════════ -->
+    <div class="modal-backdrop" id="trailerModal" aria-hidden="true">
+      <div class="modal-box">
+        <button class="modal-close" id="modalClose" aria-label="Tutup trailer">
+          <i data-lucide="x"></i>
+        </button>
+        <div class="iframe-wrap">
+          <iframe
+            id="trailerFrame"
+            src=""
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+            loading="lazy"
+            title="Trailer Film"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ ERROR TOAST ═══════════ -->
+    <div class="error-msg" id="errorMsg" role="alert" aria-live="assertive">
+      <i data-lucide="film" style="opacity: 0.5"></i>
+      <span id="errorText"
+        >Yah, filmnya lagi pada libur... coba ubah filter ya? 🎬</span
+      >
+      <button class="error-close" id="errorClose">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <!-- ═══════════ FAVORITES BAR ═══════════ -->
+    <div class="fav-bar" id="favBar">
+      <div class="fav-bar-header">
+        <span><i data-lucide="bookmark"></i> Favorit Saya</span>
+        <button class="fav-toggle" id="favToggle">
+          <i data-lucide="chevron-up"></i>
+        </button>
+      </div>
+      <div class="fav-list" id="favList"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
