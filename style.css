@@ -1284,3 +1284,31 @@ body {
   pointer-events: none;
   z-index: 9000;
 }
+
+/* ────────────Footer Styling──────────── */
+.app-footer {
+  text-align: center;
+  padding: 2rem 1rem 4rem 1rem;
+  color: #888;
+  font-size: 0.9rem;
+  background: linear-gradient(to top, #0a0a0a, transparent);
+  margin-top: auto;
+}
+
+.app-footer a {
+  color: #ca8a04;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.app-footer a:hover {
+  color: #facc15;
+  text-decoration: underline;
+}
+
+/* Pastikan footer ga mentok di mobile ────────────*/
+@media (max-width: 768px) {
+  .app-footer {
+    padding-bottom: 5rem;
+  }
+}
