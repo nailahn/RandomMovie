@@ -37,6 +37,15 @@
     <!-- Vignette -->
     <div class="vignette" aria-hidden="true"></div>
 
+    <!-- ═══════════ LANGUAGE TOGGLE (top-right corner) ═══════════ -->
+    <button
+      class="lang-toggle-btn"
+      id="langToggleBtn"
+      title="Toggle language / Ganti bahasa"
+    >
+      EN
+    </button>
+
     <!-- ═══════════ HERO SECTION ═══════════ -->
     <section id="hero" class="hero">
       <div class="hero-inner">
@@ -87,7 +96,9 @@
 
         <!-- Genre Multi-Select -->
         <div class="filter-group" id="genreGroup">
-          <label class="filter-label"> <i data-lucide="film"></i> Genre </label>
+          <label class="filter-label">
+            <i data-lucide="film"></i> <span data-i18n="labelGenre">Genre</span>
+          </label>
           <div class="genre-chips-container" id="genreChips">
             <div class="chips-loading">Memuat genre...</div>
           </div>
@@ -96,11 +107,12 @@
         <!-- Tahun Rilis -->
         <div class="filter-group">
           <label class="filter-label">
-            <i data-lucide="calendar"></i> Tahun Rilis
+            <i data-lucide="calendar"></i>
+            <span data-i18n="labelYear">Tahun Rilis</span>
           </label>
           <div class="year-range-row">
             <div class="year-input-wrap">
-              <span>dari</span>
+              <span class="year-from-label">dari</span>
               <input
                 type="number"
                 id="yearFrom"
@@ -114,7 +126,7 @@
               <div class="year-range-fill" id="yearFill"></div>
             </div>
             <div class="year-input-wrap">
-              <span>sampai</span>
+              <span class="year-to-label">sampai</span>
               <input
                 type="number"
                 id="yearTo"
@@ -130,7 +142,8 @@
         <!-- Rating Minimal -->
         <div class="filter-group">
           <label class="filter-label">
-            <i data-lucide="star"></i> Rating Minimal
+            <i data-lucide="star"></i>
+            <span data-i18n="labelRating">Rating Minimal</span>
           </label>
           <div class="rating-options" id="ratingOptions">
             <button class="rating-btn" data-rating="0">Semua</button>
@@ -146,7 +159,8 @@
         <!-- Bahasa/Negara -->
         <div class="filter-group">
           <label class="filter-label">
-            <i data-lucide="globe"></i> Bahasa / Negara
+            <i data-lucide="globe"></i>
+            <span data-i18n="labelLang">Bahasa / Negara</span>
           </label>
           <div class="custom-select-wrap">
             <select id="languageSelect" class="custom-select">

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════
-   FilmKapan? — style.css
+   WhatMovie? — style.css
    Cinematic moody dark theme — handmade feeling
    ═══════════════════════════════════════════════════ */
 
@@ -164,7 +164,7 @@ body {
   gap: 0.2em;
 }
 
-/* Typewriter — text content set by JS, then fades in char by char */
+/* Typewriter — text content set by JS */
 .typewriter {
   display: inline;
 }
@@ -1285,30 +1285,57 @@ body {
   z-index: 9000;
 }
 
-/* ────────────Footer Styling──────────── */
+/* ──────────── LANGUAGE TOGGLE BUTTON ──────────── */
+.lang-toggle-btn {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.4rem;
+  z-index: 9500;
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  padding: 0.38rem 0.7rem;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.lang-toggle-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(202, 138, 4, 0.06);
+}
+
+/* Footer Styling */
 .app-footer {
   text-align: center;
-  padding: 2rem 1rem 4rem 1rem;
-  color: #888;
+  padding: 2rem 1rem 4rem 1rem; /* atas 2rem, bawah 4rem biar ada jarak ekstra dari layar bawah */
+  color: #888; /* abu-abu soft biar ga terlalu mencolok */
   font-size: 0.9rem;
-  background: linear-gradient(to top, #0a0a0a, transparent);
-  margin-top: auto;
+  background: linear-gradient(
+    to top,
+    #0a0a0a,
+    transparent
+  ); /* gradient gelap dari bawah biar cinematic */
+  margin-top: auto; /* push ke bawah kalau body flex */
 }
 
 .app-footer a {
-  color: #ca8a04;
+  color: #ca8a04; /* kuning tua accent sesuai tema */
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .app-footer a:hover {
-  color: #facc15;
+  color: #facc15; /* lebih cerah pas hover */
   text-decoration: underline;
 }
 
-/* Pastikan footer ga mentok di mobile ────────────*/
+/* Pastikan footer ga mentok di mobile */
 @media (max-width: 768px) {
   .app-footer {
-    padding-bottom: 5rem;
+    padding-bottom: 5rem; /* tambah space lebih di HP biar ga ketutup navbar virtual */
   }
 }
